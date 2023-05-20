@@ -1,4 +1,5 @@
 package cabService;
+
 import java.util.List;
 
 public class InvoiceService {
@@ -12,7 +13,8 @@ public class InvoiceService {
 
     public Invoice getInvoiceByUserId(String userId) {
         List<Ride> rides = rideRepository.getRidesByUserId(userId);
-        return invoiceGenerator.calculateInvoice(rides);
+        boolean isPremiumRide = true;
+        return invoiceGenerator.calculateInvoice(rides, isPremiumRide);
     }
 }
 
