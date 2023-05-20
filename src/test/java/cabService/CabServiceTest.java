@@ -4,6 +4,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 
 public class CabServiceTest {
     CabServiceGen invoiceGenerator = new CabServiceGen();
@@ -68,5 +71,24 @@ public class CabServiceTest {
         assertEquals(0, invoice3.getTotalRides());
         assertEquals(0.0, invoice3.getTotalFare());
         assertEquals(0.0, invoice3.getAverageFarePerRide());
+    }
+
+    @Test
+    public void GetInvoiceByUserIdTest() {
+        RideRepository rideRepository = mock(RideRepository.class);
+        when(rideRepository.getRidesByUserId("user1")).thenReturn(getSampleRides());
+        InvoiceService invoiceService = new InvoiceService(invoiceGenerator, rideRepository);
+        Invoice invoice = invoiceService.getInvoiceByUserId("user1");
+        assertEquals(3, invoice.getTotalRides());
+        assertEquals(210.0, invoice.getTotalFare());
+        assertEquals(70.0, invoice.getAverageFarePerRide());
+    }
+
+    private List<Ride> getSampleRides() {
+        List<Ride> rides = new ArrayList<>();
+        rides.add(new Ride(10.0, 30.0));
+        rides.add(new Ride(5.0, 15.0));
+        rides.add(new Ride(2.0, 5.0));
+        return rides;
     }
 }
