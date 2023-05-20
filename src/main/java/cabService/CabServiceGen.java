@@ -19,4 +19,14 @@ public class CabServiceGen {
         }
         return totalFare;
     }
+
+    public Invoice calculateInvoice(List<Ride> rides) {
+        double totalFare = 0.0;
+        int totalRides = rides.size();
+        for (Ride ride : rides) {
+            totalFare += calculateFare(ride.getDistance(), ride.getTime());
+        }
+        double averageFarePerRide = totalFare / totalRides;
+        return new Invoice(totalRides, totalFare, averageFarePerRide);
+    }
 }
