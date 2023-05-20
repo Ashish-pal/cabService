@@ -29,7 +29,7 @@ public class CabServiceTest {
     }
 
     @Test
-    public void CalculateTotalFareTest() {
+    public void calculateTotalFareTest() {
         List<Ride> rides1 = new ArrayList<>();
         rides1.add(new Ride(10.0, 30.0));
         rides1.add(new Ride(5.0, 15.0));
